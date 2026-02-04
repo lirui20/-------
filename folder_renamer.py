@@ -14,22 +14,27 @@ import json
 
 class FileRenamer:
     def __init__(self, root):
-        self.root = root
-        self.root.title("文件批量重命名工具")
-        self.root.geometry("950x750")
-        self.root.minsize(850, 650)
+
+        """
+        初始化文件重命名工具
+        :param root: tkinter窗口对象
+        """
+        self.root = root  # 主窗口
+        self.root.title("文件批量重命名工具")  # 设置窗口标题
+        self.root.geometry("950x750")  # 设置窗口初始大小
+        self.root.minsize(850, 650)  # 设置窗口最小尺寸
 
         # 数据存储
-        self.current_path = tk.StringVar()
+        self.current_path = tk.StringVar()  # 当前路径变量
         self.files = []  # 原始文件列表
         self.preview_data = []  # 预览数据 [(原名, 新名), ...]
         self.history = []  # 操作历史，用于撤销
 
         # 重命名模式
-        self.rename_mode = tk.StringVar(value="prefix")
+        self.rename_mode = tk.StringVar(value="prefix")  # 默认为前缀模式
 
         # 扩展名处理选项
-        self.keep_extension = tk.BooleanVar(value=True)
+        self.keep_extension = tk.BooleanVar(value=True)  # 默认保留扩展名
 
         # 创建界面
         self.create_widgets()
@@ -544,7 +549,7 @@ class FileRenamer:
         total = len(self.preview_data)
         pending = sum(1 for _, _, s in self.preview_data if s == "待执行")
         self.stats_label.config(text=f"共 {total} 个文件，{pending} 个待重命名")
-
+ 
     def has_invalid_chars(self, name):
         """检查是否包含非法字符"""
         invalid_chars = '<>:"/\\|?*'
